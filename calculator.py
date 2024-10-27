@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
 
-def check_valid_operand(operand):
+def check_input(prompt, valid_options):
     
     """
-    Check user enters valid operand
+    Check user input against valid options
 
     Args: 
-        operand (str) A string representing whether addition, subtraction, multiplication, or division is the desired function
+        prompt (str): input provided by the user as a string
+        valid_options (list): A list of valid options
     """
 
-    valid_operands = ["+","-","*","/"]
-    while operand not in valid_operands:
-        operand = input("please enter valid operand - one of + - * or /\n")
-    return operand
+    user_input = input(prompt).lower()
 
-def check_user_ans(user_ans):
+    while user_input not in valid_options:
+        user_input = input(f"Please enter a valid option from: {' '.join(valid_options)}\n").lower()
 
-    """
-    Check whether user answers Yes or No in response to performing another calculation. 
+    return user_input
 
-    Args: 
-        user_ans: (str) A string indicating whether the user would lke to perform another calculation, or exit the program
-    """
-
-    valid_user_ans = ["yes","no"]
-    while user_ans not in valid_user_ans:
-        user_ans = input("Please enter Yes or No \n").lower()
-    return user_ans
 
 def addition(x,y):
 
@@ -34,8 +24,8 @@ def addition(x,y):
     Perform addition function
 
     Args: 
-        x: (float) Number representing the first addend
-        y: (float) Number representing the second addend
+        x: (float): Number representing the first addend
+        y: (float): Number representing the second addend
     """
 
     return x + y
@@ -74,6 +64,9 @@ def division(x,y):
         y: (float) Number representing the second divisor
     """
 
+    if (y==0):
+        print ("It is not possible to divide by 0")
+        return None
     return x/y
 
 
@@ -84,8 +77,8 @@ def main():
 
     while True: 
 
-        operand = input("Specify the operand as one of + - / *\n")
-        operand = check_valid_operand(operand)
+        operand = check_input("Specify the operand as one of + - / *\n", ["+","-","/", "*"])
+
             
         num1 = float(input("Specify the first number: "))
         num2 = float(input("Specify the second number: "))
@@ -97,11 +90,11 @@ def main():
         elif (operand == "*"):
             print(f"The answer is {multiplication(num1,num2):g}")
         elif (operand == "/"):
-            print(f"The answer is {division(num1,num2):g}")
+            result = division(num1,num2)
+            if result is not None:
+                print(f"The answer is {result:g}")
         
-        user_ans = input("Would you like to perform another calculation? Enter Yes or No\n").lower()
-        user_ans = check_user_ans(user_ans)
-
+        user_ans = check_input("Would you like to perform another calculation?\n", ["yes","no"])
         if (user_ans.lower()=="no"):
             print("Thank you for using Simple Calculator!")
             break
