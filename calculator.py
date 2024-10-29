@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import tkinter as tk
+
 def check_input(prompt, valid_options):
     
     """
@@ -72,7 +74,35 @@ def division(x,y):
 
 def main():
 
-    print("##########################################\n######## Simple Python Calculator ########\n##########################################\n\n") 
+    root=tk.Tk()
+    root.title("Simple Python Calculator")
+    root.geometry('700x200')
+    root.update_idletasks() 
+    root_width = root.winfo_width()
+    root_height = root.winfo_height()
+        
+    frame = tk.Frame(
+        root, 
+        width=root_width*0.9, 
+        height=root_height*0.4, 
+        padx=10, 
+        pady=10,  
+        bg='white',  
+        highlightbackground='grey', 
+        highlightthickness=2
+                
+        )
+    frame.pack(padx=10, pady=10)
+    frame.pack_propagate(False)  
+
+
+    label = tk.Label(
+    frame,
+    text = "",
+    font=('Times New Roman', 14),
+    bg='white')
+
+    label.pack(padx=10, pady=10, side='left')
 
 
     while True: 
@@ -84,20 +114,25 @@ def main():
         num2 = float(input("Specify the second number: "))
 
         if (operand == "+"):
-            print(f"The answer is {addition(num1,num2):g}")
+            result = f"The answer is  {addition(num1,num2):g}"
         elif (operand == "-"):
-            print(f"The answer is {subtraction(num1,num2):g}")
+            result = f"The answer is  {subtraction(num1,num2):g}"
         elif (operand == "*"):
-            print(f"The answer is {multiplication(num1,num2):g}")
+            result = f"The answer is {multiplication(num1,num2):g}"
         elif (operand == "/"):
             result = division(num1,num2)
-            if result is not None:
-                print(f"The answer is {result:g}")
-        
+            if result is None:
+                result = "Err. Not possible to divide by 0"
+
+
+        label.config(text=result)
+                
         user_ans = check_input("Would you like to perform another calculation?\n", ["yes","no"])
         if (user_ans.lower()=="no"):
             print("Thank you for using Simple Calculator!")
+            root.destroy()
             break
+        
 
 if __name__ == "__main__":
     main()
