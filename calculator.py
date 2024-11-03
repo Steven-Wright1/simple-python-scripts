@@ -3,138 +3,63 @@
 # creating new branch to develop calculator.py with a full GUI interface
 
 import tkinter as tk
-
-def check_input(prompt, valid_options):
-    
-    """
-    Check user input against valid options
-
-    Args: 
-        prompt (str): input provided by the user as a string
-        valid_options (list): A list of valid options
-    """
-
-    user_input = input(prompt).lower()
-
-    while user_input not in valid_options:
-        user_input = input(f"Please enter a valid option from: {' '.join(valid_options)}\n").lower()
-
-    return user_input
-
-
-def addition(x,y):
-
-    """
-    Perform addition function
-
-    Args: 
-        x: (float): Number representing the first addend
-        y: (float): Number representing the second addend
-    """
-
-    return x + y
-
-def subtraction(x,y):
-
-    """
-    Perform subtraction function
-
-    Args: 
-        x: (float) Number representing the first minuend
-        y: (float) Number representing the second subtrahend
-    """
-
-    return x - y
-
-def multiplication(x,y):
-
-    """
-    Perform multiplication function
-
-    Args: 
-        x: (float) Number representing the first multiplicand
-        y: (float) Number representing the second multiplier
-    """
-
-    return x * y
-
-def division(x,y):
-
-    """
-    Perform division function
-
-    Args: 
-        x: (float) Number representing the first dividend
-        y: (float) Number representing the second divisor
-    """
-
-    if (y==0):
-        print ("It is not possible to divide by 0")
-        return None
-    return x/y
-
+from tkinter import ttk
 
 def main():
 
     root=tk.Tk()
     root.title("Simple Python Calculator")
-    root.geometry('700x200')
-    root.update_idletasks() 
-    root_width = root.winfo_width()
-    root_height = root.winfo_height()
-        
-    frame = tk.Frame(
-        root, 
-        width=root_width*0.9, 
-        height=root_height*0.4, 
-        padx=10, 
-        pady=10,  
-        bg='white',  
-        highlightbackground='grey', 
-        highlightthickness=2
-                
-        )
-    frame.pack(padx=10, pady=10)
-    frame.pack_propagate(False)  
+    root.geometry('475x375')
+
+    style = ttk.Style()
+    style.configure('TButton',background='grey',padding=15)
+    style.configure('cancel.TButton',background='brown3',padding=15)
 
 
-    label = tk.Label(
-    frame,
-    text = "",
-    font=('Times New Roman', 14),
-    bg='white')
+    result = tk.Label(root,text="Display Field for result",background='white',padx=150,pady=20)
+    result.grid(row=1,columnspan=4,padx=10,pady=20, sticky='nsew')
 
-    label.pack(padx=10, pady=10, side='left')
-
-
-    while True: 
-
-        operand = check_input("Specify the operand as one of + - / *\n", ["+","-","/", "*"])
-
-            
-        num1 = float(input("Specify the first number: "))
-        num2 = float(input("Specify the second number: "))
-
-        if (operand == "+"):
-            result = f"The answer is  {addition(num1,num2):g}"
-        elif (operand == "-"):
-            result = f"The answer is  {subtraction(num1,num2):g}"
-        elif (operand == "*"):
-            result = f"The answer is {multiplication(num1,num2):g}"
-        elif (operand == "/"):
-            result = division(num1,num2)
-            if result is None:
-                result = "Err. Not possible to divide by 0"
+    button1 = ttk.Button(root,text="7",style='TButton')
+    button1.grid(row=2, column=0,pady=5)
+    button2 = ttk.Button(root,text="8",style='TButton')
+    button2.grid(row=2,column=1)
+    button3 = ttk.Button(root,text="9",style='TButton')
+    button3.grid(row=2,column=2)
+    button4 = ttk.Button(root,text="+",style='TButton')
+    button4.grid(row=2,column=3)
 
 
-        label.config(text=result)
-                
-        user_ans = check_input("Would you like to perform another calculation?\n", ["yes","no"])
-        if (user_ans.lower()=="no"):
-            print("Thank you for using Simple Calculator!")
-            root.destroy()
-            break
-        
+    button5 = ttk.Button(root,text="4",style='TButton')
+    button5.grid(row=3,column=0,pady=5)
+    button6 = ttk.Button(root,text="5",style='TButton')
+    button6.grid(row=3,column=1)
+    button7 = ttk.Button(root,text="6",style='TButton')
+    button7.grid(row=3,column=2)
+    button8 = ttk.Button(root,text="-",style='TButton')
+    button8.grid(row=3,column=3)
+
+    button9 = ttk.Button(root,text="1",style='TButton')
+    button9.grid(row=4,column=0,pady=5)
+    button10 = ttk.Button(root,text="2",style='TButton')
+    button10.grid(row=4,column=1)
+    button11 = ttk.Button(root,text="3",style='TButton')
+    button11.grid(row=4,column=2)
+    button12 = ttk.Button(root,text="x",style='TButton')
+    button12.grid(row=4,column=3)
+    
+    button13 = ttk.Button(root,text="C",style='cancel.TButton')
+    button13.grid(row=5,column=0,pady=5)
+    button14 = ttk.Button(root,text="0",style='TButton')
+    button14.grid(row=5,column=1)
+    button15 = ttk.Button(root,text="=",style='TButton')
+    button15.grid(row=5,column=2)
+    button16 = ttk.Button(root,text="÷",style='TButton')
+    button16.grid(row=5,column=3)
+
+
+
+    root.mainloop()
+    
 
 if __name__ == "__main__":
     main()
